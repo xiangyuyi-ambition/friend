@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>宝宝页面”</title>
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+      background: linear-gradient(135deg, #ffe4ec 0%, #fff4f8 45%, #fef7ff 100%);
+      overflow: hidden;
+    }
+
+    .bg-hearts {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .heart {
+      position: absolute;
+      color: rgba(255, 105, 150, 0.18);
+      animation: floatUp linear infinite;
+      user-select: none;
+    }
+
+    @keyframes floatUp {
+      from {
+        transform: translateY(40px) scale(0.8);
+        opacity: 0;
+      }
+      20% { opacity: 1; }
+      to {
+        transform: translateY(-120vh) scale(1.2);
+        opacity: 0;
+      }
+    }
+
+    .card {
+      width: min(92vw, 560px);
+      background: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      border-radius: 28px;
+      box-shadow: 0 20px 60px rgba(237, 108, 153, 0.18);
+      padding: 28px 24px 30px;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: #fff0f5;
+      color: #e35d93;
+      font-size: 14px;
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 34px;
+      color: #ff4f8b;
+    }
+
+    .subtitle {
+      margin: 12px 0 26px;
+      color: #7a6170;
+      font-size: 18px;
+      line-height: 1.7;
+    }
+
+    .btn-area {
+      position: relative;
+      height: 120px;
+      margin-top: 10px;
+    }
+
+    button {
+      border: none;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      user-select: none;
+    }
+
+    #yesBtn {
+      min-width: 140px;
+      padding: 16px 28px;
+      border-radius: 16px;
+      font-size: 22px;
+      font-weight: bold;
+      color: white;
+      background: linear-gradient(135deg, #ff6b9e, #ff3e7f);
+      box-shadow: 0 12px 24px rgba(255, 77, 136, 0.28);
+      margin-right: 18px;
+    }
+
+    #yesBtn:hover {
+      transform: translateY(-2px) scale(1.03);
+      box-shadow: 0 16px 28px rgba(255, 77, 136, 0.34);
+    }
+
+    #noBtn {
+      min-width: 140px;
+      padding: 16px 28px;
+      border-radius: 16px;
+      font-size: 22px;
+      font-weight: bold;
+      color: #666;
+      background: #f2f2f2;
+      box-shadow: 0 10px 18px rgba(0, 0, 0, 0.08);
+      transform-origin: center;
+    }
+
+    .tip {
+      margin-top: 22px;
+      color: #b07a91;
+      font-size: 14px;
+    }
+
+    .result-mask {
+      position: fixed;
+      inset: 0;
+      background: rgba(255, 192, 215, 0.22);
+      backdrop-filter: blur(6px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+    }
+
+    .result-box {
+      width: min(90vw, 420px);
+      background: white;
+      border-radius: 24px;
+      padding: 32px 24px;
+      box-shadow: 0 24px 50px rgba(255, 84, 140, 0.24);
+      text-align: center;
+      animation: popIn 0.3s ease;
+    }
+
+    @keyframes popIn {
+      from {
+        transform: scale(0.82);
+        opacity: 0;
+      }
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    .result-box h2 {
+      margin: 0 0 12px;
+      color: #ff4f8b;
+      font-size: 30px;
+    }
+
+    .result-box p {
+      margin: 0;
+      color: #666;
+      font-size: 18px;
+      line-height: 1.8;
+    }
+
+    .sparkle {
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+
+    @media (max-width: 520px) {
+      h1 { font-size: 28px; }
+      .subtitle { font-size: 16px; }
+      #yesBtn, #noBtn {
+        min-width: 118px;
+        font-size: 20px;
+        padding: 14px 20px;
+      }
+      .btn-area {
+        height: 110px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-hearts" id="bgHearts"></div>
+
+  <div class="card">
+    <div class="badge">💌 小告白页面</div>
+    <h1>可以做我女朋友吗？</h1>
+    <div class="subtitle">
+      认真想好再点喔～<br />
+    </div>
+
+    <div class="btn-area">
+      <button id="yesBtn">可以</button>
+      <button id="noBtn">不可以</button>
+    </div>
+
+  </div>
+
+  <div class="result-mask" id="resultMask">
+    <div class="result-box">
+      <div class="sparkle">🎉💖✨</div>
+      <h2>太好啦！</h2>
+      <p>亲亲宝宝。</p>
+    </div>
+  </div>
+
+  <script>
+    const noBtn = document.getElementById('noBtn');
+    const yesBtn = document.getElementById('yesBtn');
+    const resultMask = document.getElementById('resultMask');
+    const bgHearts = document.getElementById('bgHearts');
+
+    let noScale = 1;
+
+    function moveNoBtnRandomly() {
+      const area = document.querySelector('.btn-area');
+      const areaRect = area.getBoundingClientRect();
+      const btnRect = noBtn.getBoundingClientRect();
+
+      const maxX = Math.max(areaRect.width - btnRect.width, 0);
+      const maxY = Math.max(areaRect.height - btnRect.height, 0);
+
+      const x = Math.random() * maxX;
+      const y = Math.random() * maxY;
+
+      noScale -= 0.06;
+      if (noScale < 0.72) noScale = 0.72;
+
+      noBtn.style.position = 'absolute';
+      noBtn.style.left = `${x}px`;
+      noBtn.style.top = `${y}px`;
+      noBtn.style.margin = '0';
+      noBtn.style.transform = `scale(${noScale})`;
+      noBtn.style.opacity = Math.max(noScale, 0.82);
+
+      const yesGrow = 1 + (1 - noScale) * 0.35;
+      yesBtn.style.transform = `scale(${yesGrow})`;
+    }
+
+    noBtn.addEventListener('mouseenter', moveNoBtnRandomly);
+    noBtn.addEventListener('mousemove', moveNoBtnRandomly);
+    noBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      moveNoBtnRandomly();
+    });
+
+    yesBtn.addEventListener('click', () => {
+      resultMask.style.display = 'flex';
+      createBurstHearts(24);
+    });
+
+    resultMask.addEventListener('click', () => {
+      resultMask.style.display = 'none';
+    });
+
+    function createFloatingHearts() {
+      for (let i = 0; i < 18; i++) {
+        const heart = document.createElement('div');
+        heart.className = 'heart';
+        heart.innerText = Math.random() > 0.5 ? '❤' : '💗';
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.bottom = -Math.random() * 100 + 'px';
+        heart.style.fontSize = 14 + Math.random() * 24 + 'px';
+        heart.style.animationDuration = 6 + Math.random() * 8 + 's';
+        heart.style.animationDelay = Math.random() * 6 + 's';
+        bgHearts.appendChild(heart);
+      }
+    }
+
+    function createBurstHearts(count) {
+      for (let i = 0; i < count; i++) {
+        const heart = document.createElement('div');
+        heart.className = 'heart';
+        heart.innerText = Math.random() > 0.5 ? '💖' : '❤';
+        heart.style.left = 40 + Math.random() * 20 + 'vw';
+        heart.style.bottom = 20 + Math.random() * 20 + 'vh';
+        heart.style.fontSize = 18 + Math.random() * 22 + 'px';
+        heart.style.animationDuration = 2 + Math.random() * 2 + 's';
+        bgHearts.appendChild(heart);
+        setTimeout(() => heart.remove(), 4000);
+      }
+    }
+
+    createFloatingHearts();
+    setTimeout(moveNoBtnRandomly, 300);
+  </script>
+</body>
+</html>
